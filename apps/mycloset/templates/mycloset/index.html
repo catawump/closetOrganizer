@@ -1,0 +1,49 @@
+<html>
+
+<head>
+  <title>myCloset</title>
+  <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
+    crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+  <link rel="stylesheet" href="../static/mycloset/style.css">
+</head>
+    <body>
+
+        <div id = "topbar"><i class="fas fa-door-open"></i> myCloset
+        </div>
+        <div id = "index-container">
+
+        <div class = "login-registration">
+        <h2>Register</h2>
+        <form action="/register" method="POST">
+            {% csrf_token %}
+            <p>Name: <input type="text" name="name"></p>
+            <p>E-mail: <input type="text" name="email"></p>
+            <p>Password*: <input type="password" name="password"></p>
+            <p class="notes">* Password should be at least 8 characters</p>
+            <p>Confirm Password: <input type="password" name="confirm_password"></p>
+
+           <center> <input type="submit" value="Register" class="btn btn-primary"> </center>
+        </form>
+    </div>
+    <div class = "login-registration">
+        <h2>Log In</h2>
+        <form action="/login" method="POST">
+            {% csrf_token %}
+            <p>E-mail: <input type="text" name="email"></p>
+            <p>Password: <input type="password" name="password"></p>
+
+            <center> <input type="submit" value="Log In" class="btn btn-primary"> </center>
+        </form>
+    </div>
+    <br><br>
+    {% if messages %}
+            {% for message in messages %}
+               <center> <p class="errors">{{message}}</p> </center>
+            {% endfor %}
+        {% endif %}
+
+</div>
+    </body>
+</html>

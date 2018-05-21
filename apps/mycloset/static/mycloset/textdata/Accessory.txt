@@ -1,0 +1,5 @@
+<option value="Scarf">Scarf</option>
+<option value="Hat">Hat</option>
+<option value="Belt">Belt</option>
+<option value="Jewelry">Jewelry</option>
+<option value="Gloves">Gloves</option>

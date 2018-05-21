@@ -1,0 +1,5 @@
+<option value="Sneakers">Sneakers</option>
+<option value="Boots">Boots</option>
+<option value="Dress Shoes">Dress Shoes</option>
+<option value="High Heels">High Heels</option>
+<option value="Sandals">Sandals</option>

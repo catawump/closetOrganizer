@@ -1,0 +1,49 @@
+<html>
+
+<head>
+  <title>Destination Details</title>
+  <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
+    crossorigin="anonymous">
+  <link rel="stylesheet" href="../static/travel/style.css">
+</head>
+
+<body>
+
+    <div style="position: fixed; top: 20px; right: 20px; padding: 20px; background-color: #eeeeee; border-radius: 10px;">
+        <a href="/dashboard">
+            <button type="button" class="btn btn-primary" style="display: inline-block; margin-right: 20px;">Home</button>
+          </a>
+           
+          <form action="/logout" method="post" style="display: inline-block;">
+            {% csrf_token %}
+            <input type="submit" name="" class="btn btn-danger" style="display: inline-block;" value="Log Out">
+          </form>
+      </div>
+
+  <h1>{{trip.destination}}</h1>
+  <h3>Planned by: {{trip.trip_creator.name}} @{{trip.trip_creator.username}}</h3>
+  {% if messages %} {% for message in messages %}
+  <p class="errors">{{message}}</p>
+  {% endfor %} {% endif %}
+  <br>
+  <p><b>Plan:</b> {{trip.plan}}</p>
+  <p><b>Travel Start Date:</b> {{trip.travel_start}}</p>
+  <p><b>Travel End Date:</b> {{trip.travel_end}}</p>
+  <br><br>
+
+  <h3>Other Users Joining:</h3>
+  {% if travelers %}
+    {% for traveler in travelers %}
+      <p>{{traveler.name}}</p>
+    {% endfor %}
+  {% endif %}
+  {% if not travelers %}
+    <p>No other travelers have joined yet.</p>
+  {% endif %}
+  <br><br>
+  <a href="/dashboard"><button class="btn btn-warning">Go Back</button></a>
+  <br><br>
+</body>
+
+</html>

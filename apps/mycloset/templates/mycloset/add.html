@@ -1,0 +1,111 @@
+<html>
+
+<head>
+  <title>myCloset: Add New Piece of Clothing</title>
+  <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
+    crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+  <link rel="stylesheet" href="../static/mycloset/style.css">
+  <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+  <script type="text/javascript">
+      $(document).ready(function () {
+          console.log('The jQuery is working!');
+
+            $("#first-choice").change(function() {
+            $("#second-choice").load("../static/mycloset/textdata/" + $(this).val() + ".txt");
+            });
+      });
+  </script>
+</head>
+
+<body>
+    <div id = "topbar"><i class="fas fa-door-open"></i> myCloset
+
+      <a href="/dashboard">
+        <button class="btn btn-danger" style="position: fixed; right: 120px; top: 10px;">Home</button>
+      </a>
+
+      <form action="/logout" method="post" style="display: inline-block;">
+        {% csrf_token %}
+        <input type="submit" name="" class="btn btn-danger" style="position: fixed; right: 30px; top: 10px;" value="Log Out">
+      </form>
+
+    </div>
+    <div id = "index-container">
+<div class="main">
+
+    <h2><i class="fas fa-tshirt"></i> Add a Piece of Clothing</h2>
+
+    {% if messages %} {% for message in messages %}
+  <p class="errors">{{message}}</p>
+  {% endfor %} {% endif %}
+
+  <form action="/createitem" method="post">
+
+    {% csrf_token %}
+
+    <p>Item Type: <select id="first-choice" name="type">
+        <option selected value="base">Please Select</option>
+        <option value="Top">Top</option>
+        <option value="Bottom">Bottom</option>
+        <option value="Full-Body">Full-Body</option>
+        <option value="Shoes">Shoes</option>
+        <option value="Accessory">Accessory</option>
+      </select></p>
+    <p>Item Subtype: <select id="second-choice" name="subtype">
+        <option value="no">Please choose type first</option>
+      </select>
+    </p>
+    <p>Color: <select name="color">
+      <option value="Black">Black</option>
+      <option value="White">White</option>
+      <option value="Grey">Grey</option>
+      <option value="Beige">Beige</option>
+      <option value="Red">Red</option>
+      <option value="Orange">Orange</option>
+      <option value="Yellow">Yellow</option>
+      <option value="Green">Green</option>
+      <option value="Blue">Blue</option>
+      <option value="Purple">Purple</option>
+      <option value="Pink">Pink</option>
+      <option value="Multi-colored">Multi-Colored</option>
+    </select></p>
+    <p>Pattern: 
+        <select name="pattern">
+            <option value="Plain">Plain</option>
+            <option value="Plaid">Plaid</option>
+            <option value="Verical Stripes">Verical Stripes</option>
+            <option value="Horizontal Stripes">Horizontal Stripes</option>
+            <option value="Dots">Dots</option>
+            <option value="Floral">Floral</option>
+            <option value="Argyle">Argyle</option>
+            <option value="Houndstooth">Houndstooth</option>
+          </select></p>
+    </p>
+    <p>Fanciness:
+      <select name="fanciness">
+        <option value="Extremely Casual">Extremely Casual</option>
+        <option value="Casual">Casual</option>
+        <option value="Business Casual">Business Casual</option>
+        <option value="Business Professional">Business Professional</option>
+        <option value="Black Tie">Black Tie</option>
+      </select></p>
+    <p>Weather Type: 
+      <select name="weather">
+        <option value="Cold">Cold</option>
+        <option value="Chilly">Chilly</option>
+        <option value="Warm">Warm</option>
+        <option value="Hot">Hot</option>
+      </select></p>
+
+   <center> <input type="submit" name="create" class="btn btn-primary" value="Add Item"> </center>
+
+    <br>
+
+  </form>
+</div>
+</div>
+</body>
+
+</html>

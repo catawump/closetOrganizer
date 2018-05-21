@@ -1,0 +1,4 @@
+<option value="Pants">Pants</option>
+<option value="Shorts">Shorts</option>
+<option value="Leggings">Leggings</option>
+<option value="Skirt">Skirt</option>

@@ -1,6 +1,6 @@
 <option value="T-Shirt">T-Shirt</option>
 <option value="Dress Shirt">Dress Shirt</option>
-<option value="Tank Top/Sleeveless Shirt">Tank Top/Sleeveless Shirt</option>
+<option value="Tank Top">Tank Top</option>
 <option value="Sweater/Hoodie">Sweater/Hoodie</option>
 <option value="Jacket">Jacket</option>
 <option value="Coat">Coat</option>

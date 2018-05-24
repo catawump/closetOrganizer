@@ -24,28 +24,99 @@
       <div class = "main">
   <h2>Welcome, {{request.session.name}}!</h2>
   {% if messages %} {% for message in messages %}
-  <p class="errors">{{message}}</p>
+  <center><p class="errors">{{message}}</p></center>
   {% endfor %} {% endif %}
     <center>
   <a href="/add">
     <button type="button" class="btn btn-primary" style="display: inline-block; margin-right: 20px;">Add New Clothing</button>
   </a>
 
-  <a href="#">
-    <button type="button" class="btn btn-primary" style="display: inline-block; margin-right: 20px;">Build an Outfit</button>
+  <a href="/outfits">
+    <button type="button" class="btn btn-primary" style="display: inline-block; margin-right: 20px;">Build or Wear an Outfit</button>
   </a>
 
-  <a href="#">
+  <a href="/laundry">
       <button type="button" class="btn btn-primary" style="display: inline-block; margin-right: 20px;">Do Laundry</button>
     </a>
 
-    <a href="#">
+    <a href="/manage">
         <button type="button" class="btn btn-primary" style="display: inline-block; margin-right: 20px;">Manage Clothes</button>
       </a>
 
       <br><br>
     </center>
 </div>
+
+{% if favclothes %}
+<div class = "main">
+    <h2>Your Clean Favorites</h2>
+    <table>
+        <tr>
+          <th>Type</th>
+          <th>Item</th>
+          <th>Description</th>
+          <th>Pattern</th>
+          <th>Fanciness</th>
+          <th>Weather</th>
+          <th>Wear</th>
+        </tr>
+        {% for clothes in favclothes %}
+        <tr>
+          <td><a href="/viewitem/{{clothes.id}}" style="color: {{clothes.color}}; opacity: .6; -webkit-text-stroke: 2px #966B9D;">
+  
+            {% if clothes.mainType == "Top" %}
+            <i class="fas fa-tshirt fa-3x"></i>
+            {% endif %}
+  
+            {% if clothes.mainType == "Bottom" %}
+            <div style="overflow: hidden; width: 75px; height: 43px;"><i class="fas fa-child fa-5x" style="opacity: .6; margin-top: -40px;"></i></div>
+            {% endif %}
+  
+            {% if clothes.mainType == "Full-Body" %}
+            <i class="fas fa-female fa-3x"></i>
+            {% endif %}
+  
+            {% if clothes.mainType == "Shoes" %}
+            <i class="fas fa-shoe-prints fa-3x"></i>
+            {% endif %}
+  
+            {% if clothes.mainType == "Accessory" %}
+            <i class="fas fa-crown fa-3x"></i>
+            {% endif %}
+          
+          
+          
+          </a></td>
+          <td>{{clothes.subType}}</td>
+          <td>{{clothes.description}}</td>
+          <td>{{clothes.pattern}}</td>
+          <td>{{clothes.fanciness}}</td>
+          <td>
+              {% if clothes.weather == "Cold" %}
+              <i class="fas fa-thermometer-empty fa-3x" style="color: #4a9fe7"></i>
+              {% endif %}
+  
+              {% if clothes.weather == "Chilly" %}
+              <i class="fas fa-thermometer-quarter fa-3x" style="color: #8a9cc4;"></i>
+              {% endif %}
+  
+              {% if clothes.weather == "Warm" %}
+              <i class="fas fa-thermometer-half fa-3x" style="color: #b06b7e;"></i>
+              {% endif %}
+  
+              {% if clothes.weather == "Hot" %}
+              <i class="fas fa-thermometer-full fa-3x" style="color: #d35959;"></i>
+              {% endif %}
+          </td>
+          <td><form action="/wear/{{clothes.id}}" method="post">
+            {% csrf_token %}
+            <input type="submit" name="" class="btn btn-primary" style="display: inline-block;" value="Wear">
+            </form></td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+{% endif %}
 
 <div class = "main">
     <h2>Your Clean Clothes</h2>
@@ -54,6 +125,7 @@
       <tr>
         <th>Type</th>
         <th>Item</th>
+        <th>Description</th>
         <th>Pattern</th>
         <th>Fanciness</th>
         <th>Weather</th>
@@ -61,14 +133,14 @@
       </tr>
       {% for item in cleanclothes %}
       <tr>
-        <td><a href="/item/{{item.id}}" style="color: {{item.color}}; opacity: .75;-webkit-text-stroke: 2px #966B9D;">
+        <td><a href="/viewitem/{{item.id}}" style="color: {{item.color}}; opacity: .6; -webkit-text-stroke: 2px #966B9D;">
 
           {% if item.mainType == "Top" %}
           <i class="fas fa-tshirt fa-3x"></i>
           {% endif %}
 
           {% if item.mainType == "Bottom" %}
-          <div style="overflow: hidden; width: 75px; height: 43px;"><i class="fas fa-child fa-5x" style="margin-top: -40px;"></i></div>
+          <div style="overflow: hidden; width: 75px; height: 43px;"><i class="fas fa-child fa-5x" style="opacity: .6; margin-top: -40px;"></i></div>
           {% endif %}
 
           {% if item.mainType == "Full-Body" %}
@@ -87,6 +159,7 @@
         
         </a></td>
         <td>{{item.subType}}</td>
+        <td>{{item.description}}</td>
         <td>{{item.pattern}}</td>
         <td>{{item.fanciness}}</td>
         <td>
@@ -106,16 +179,17 @@
             <i class="fas fa-thermometer-full fa-3x" style="color: #d35959;"></i>
             {% endif %}
         </td>
-        <td><a href="#">
-            <button type="button" class="btn btn-primary" style="display: inline-block;">Wear</button>
-          </a></td>
+        <td><form action="/wear/{{item.id}}" method="post">
+          {% csrf_token %}
+          <input type="submit" name="" class="btn btn-primary" style="display: inline-block;" value="Wear">
+          </form></td>
       </tr>
       {% endfor %}
     </table>
     {% endif %}
   
     {% if not cleanclothes %}
-      <p>You do not currently have any clean items. Please add clothing, or do laundry!</p>
+      <center><p>You do not currently have any clean items. Please <a href="/add">add clothing</a>, or <a href="/laundry">do laundry</a>!</p></center>
     {% endif %}
 </div>
 </body>

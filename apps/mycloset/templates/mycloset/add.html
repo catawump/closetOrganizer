@@ -33,7 +33,7 @@
 
     </div>
     <div id = "index-container">
-<div class="main">
+<div class="formmain">
 
     <h2><i class="fas fa-tshirt"></i> Add a Piece of Clothing</h2>
 
@@ -44,35 +44,54 @@
   <form action="/createitem" method="post">
 
     {% csrf_token %}
+    <table style="border: none; text-align: left;">
+      <tr>
+        <td>Item Type:</td>
+        <td>
+          <select id="first-choice" name="type">
+            <option selected value="base">Please Select</option>
+            <option value="Top">Top</option>
+            <option value="Bottom">Bottom</option>
+            <option value="Full-Body">Full-Body</option>
+            <option value="Shoes">Shoes</option>
+            <option value="Accessory">Accessory</option>
+          </select>
+        </td>
+      </tr>
 
-    <p>Item Type: <select id="first-choice" name="type">
-        <option selected value="base">Please Select</option>
-        <option value="Top">Top</option>
-        <option value="Bottom">Bottom</option>
-        <option value="Full-Body">Full-Body</option>
-        <option value="Shoes">Shoes</option>
-        <option value="Accessory">Accessory</option>
-      </select></p>
-    <p>Item Subtype: <select id="second-choice" name="subtype">
-        <option value="no">Please choose type first</option>
-      </select>
-    </p>
-    <p>Color: <select name="color">
-      <option value="Black">Black</option>
-      <option value="White">White</option>
-      <option value="Grey">Grey</option>
-      <option value="Beige">Beige</option>
-      <option value="Red">Red</option>
-      <option value="Orange">Orange</option>
-      <option value="Yellow">Yellow</option>
-      <option value="Green">Green</option>
-      <option value="Blue">Blue</option>
-      <option value="Purple">Purple</option>
-      <option value="Pink">Pink</option>
-      <option value="Multi-colored">Multi-Colored</option>
-    </select></p>
-    <p>Pattern: 
-        <select name="pattern">
+      <tr>
+        <td>Item Subtype:</td>
+        <td>
+          <select id="second-choice" name="subtype">
+            <option value="no">---</option>
+          </select>
+        </td>
+      </tr>
+
+      <tr>
+        <td>Color:</td>
+        <td>
+          <select name="color">
+            <option value="Black">Black</option>
+            <option value="White">White</option>
+            <option value="Grey">Grey</option>
+            <option value="Beige">Beige</option>
+            <option value="Red">Red</option>
+            <option value="Orange">Orange</option>
+            <option value="Yellow">Yellow</option>
+            <option value="Green">Green</option>
+            <option value="Blue">Blue</option>
+            <option value="Purple">Purple</option>
+            <option value="Pink">Pink</option>
+            <option value="Multi-colored">Multi-Colored</option>
+          </select>
+        </td>
+      </tr>
+
+      <tr>
+        <td>Pattern:</td>
+        <td>
+          <select name="pattern">
             <option value="Plain">Plain</option>
             <option value="Plaid">Plaid</option>
             <option value="Verical Stripes">Verical Stripes</option>
@@ -81,23 +100,43 @@
             <option value="Floral">Floral</option>
             <option value="Argyle">Argyle</option>
             <option value="Houndstooth">Houndstooth</option>
-          </select></p>
-    </p>
-    <p>Fanciness:
-      <select name="fanciness">
-        <option value="Extremely Casual">Extremely Casual</option>
-        <option value="Casual">Casual</option>
-        <option value="Business Casual">Business Casual</option>
-        <option value="Business Professional">Business Professional</option>
-        <option value="Black Tie">Black Tie</option>
-      </select></p>
-    <p>Weather Type: 
-      <select name="weather">
-        <option value="Cold">Cold</option>
-        <option value="Chilly">Chilly</option>
-        <option value="Warm">Warm</option>
-        <option value="Hot">Hot</option>
-      </select></p>
+          </select>
+        </td>
+      </tr>
+
+      <tr>
+        <td>Fanciness:</td>
+        <td>
+          <select name="fanciness">
+            <option value="Extremely Casual">Extremely Casual</option>
+            <option value="Casual">Casual</option>
+            <option value="Business Casual">Business Casual</option>
+            <option value="Business Professional">Business Professional</option>
+            <option value="Black Tie">Black Tie</option>
+          </select>
+        </td>
+      </tr>
+
+      <tr>
+        <td>Weather:</td>
+        <td>
+          <select name="weather">
+            <option value="Cold">Cold</option>
+            <option value="Chilly">Chilly</option>
+            <option value="Warm">Warm</option>
+            <option value="Hot">Hot</option>
+          </select>
+        </td>
+      </tr>
+
+      <tr>
+        <td>Short Description:</td>
+        <td>
+          <input type="text" name="description">
+        </td>
+      </tr>
+
+    </table>
 
    <center> <input type="submit" name="create" class="btn btn-primary" value="Add Item"> </center>
 

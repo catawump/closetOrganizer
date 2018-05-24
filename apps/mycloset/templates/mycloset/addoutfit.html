@@ -1,0 +1,104 @@
+<html>
+
+<head>
+  <title>myCloset: Create a New Outfit</title>
+  <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
+    crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+  <link rel="stylesheet" href="../static/mycloset/style.css">
+</head>
+
+<body>
+    <div id = "topbar"><i class="fas fa-door-open"></i> myCloset
+
+      <a href="/dashboard">
+        <button class="btn btn-danger" style="position: fixed; right: 120px; top: 10px;">Home</button>
+      </a>
+
+      <form action="/logout" method="post" style="display: inline-block;">
+        {% csrf_token %}
+        <input type="submit" name="" class="btn btn-danger" style="position: fixed; right: 30px; top: 10px;" value="Log Out">
+      </form>
+
+    </div>
+    <div id = "index-container">
+<div class="formmain">
+
+    <h2><i class="fas fa-tshirt"></i> Create an Outfit</h2>
+
+    {% if messages %} {% for message in messages %}
+  <p class="errors">{{message}}</p>
+  {% endfor %} {% endif %}
+
+  <form action="/createoutfit" method="post">
+
+    {% csrf_token %}
+    <table style="border: none; text-align: left;">
+      <tr>
+        <td>Top:</td>
+        <td>
+          <select name="top">
+            <option value="no">Please Select</option>
+            {% for top in tops %}
+            <option value="{{top.id}}">{{top.color}} {{top.subType}} | {{top.description}} | {{top.fanciness}} and best for {{top.weather}} weather</option>
+            {% endfor %}
+          </select>
+        </td>
+      </tr>
+
+      <tr>
+        <td>Bottom:</td>
+        <td>
+          <select name="bottom">
+            <option value="no">Please Select</option>
+            {% for bottom in bottoms %}
+            <option value="{{bottom.id}}">{{bottom.color}} {{bottom.subType}} | {{bottom.description}} | {{bottom.fanciness}} and best for {{bottom.weather}} weather</option>
+            {% endfor %}
+          </select>
+        </td>
+      </tr>
+
+      <tr>
+        <td>Shoes:</td>
+        <td>
+          <select name="shoes">
+            <option value="no">Please Select</option>
+            {% for shoe in shoes %}
+            <option value="{{shoe.id}}">{{shoe.color}} {{shoe.subType}} | {{shoe.description}} | {{shoe.fanciness}} and best for {{shoe.weather}} weather</option>
+            {% endfor %}
+          </select>
+        </td>
+      </tr>
+
+      <tr>
+        <td>Accessory:</td>
+        <td>
+          <select name="accessory">
+            <option value="no">Please Select</option>
+            {% for accessory in accessories %}
+            <option value="{{accessory.id}}">{{accessory.color}} {{accessory.subType}} | {{accessory.description}} | {{accessory.fanciness}} and best for {{accessory.weather}} weather</option>
+            {% endfor %}
+          </select>
+        </td>
+      </tr>
+
+      <tr>
+        <td>Outfit Name:</td>
+        <td>
+          <input type="text" name="name">
+        </td>
+      </tr>
+
+    </table>
+
+   <center> <input type="submit" name="create" class="btn btn-primary" value="Add Outfit"> </center>
+
+    <br>
+
+  </form>
+</div>
+</div>
+</body>
+
+</html>

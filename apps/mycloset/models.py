@@ -59,9 +59,20 @@ class Clothes(models.Model):
     color = models.CharField(max_length=255)
     weather = models.CharField(max_length=255)
     fanciness = models.CharField(max_length=255)
+    description = models.CharField(max_length=255)
     clean = models.BooleanField()
     favorite = models.BooleanField()
     pattern = models.CharField(max_length=255)
     item_creator = models.ForeignKey(User, related_name="user_clothes")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+#Outfit Model
+
+class Outfit(models.Model):
+    name = models.CharField(max_length=255)
+    top = models.ManyToManyField(Clothes, related_name="outfit_top")
+    bottom = models.ManyToManyField(Clothes, related_name="outfit_bottom")
+    shoes = models.ManyToManyField(Clothes, related_name="outfit_shoes")
+    accessory = models.ManyToManyField(Clothes, related_name="outfit_accessory")
+    outfit_creator = models.ForeignKey(User, related_name="user_outfits")

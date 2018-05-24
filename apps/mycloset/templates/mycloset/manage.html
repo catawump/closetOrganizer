@@ -1,0 +1,105 @@
+<html>
+
+<head>
+  <title>myCloset: Manage Clothes</title>
+  <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
+    crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+  <link rel="stylesheet" href="../static/mycloset/style.css">
+</head>
+
+<body>
+
+    <div id = "topbar"><i class="fas fa-door-open"></i> myCloset
+
+      <a href="/dashboard">
+        <button class="btn btn-danger" style="position: fixed; right: 120px; top: 10px;">Home</button>
+      </a>
+
+      <form action="/logout" method="post" style="display: inline-block;">
+        {% csrf_token %}
+        <input type="submit" name="" class="btn btn-danger" style="position: fixed; right: 30px; top: 10px;" value="Log Out">
+      </form>
+
+    </div>
+
+    <div id = "index-container">
+      <div class = "main">
+
+    <h2>All Clothes: Manage</h2>
+    
+    {% if messages %} {% for message in messages %}
+    <p class="errors">{{message}}</p>
+    {% endfor %} {% endif %}
+
+    {% if allclothes %}
+    <table>
+      <tr>
+        <th>Type</th>
+        <th>Item</th>
+        <th>Description</th>
+        <th>Pattern</th>
+        <th>Date Added</th>
+        <th>Favorite</th>
+        <th>Delete</th>
+      </tr>
+      {% for item in allclothes %}
+      <tr>
+        <td><a href="/viewitem/{{item.id}}" style="color: {{item.color}}; opacity: .6; -webkit-text-stroke: 2px #966B9D;">
+
+          {% if item.mainType == "Top" %}
+          <i class="fas fa-tshirt fa-3x"></i>
+          {% endif %}
+
+          {% if item.mainType == "Bottom" %}
+          <div style="overflow: hidden; width: 75px; height: 43px;"><i class="fas fa-child fa-5x" style="opacity: .6; margin-top: -40px;"></i></div>
+          {% endif %}
+
+          {% if item.mainType == "Full-Body" %}
+          <i class="fas fa-female fa-3x"></i>
+          {% endif %}
+
+          {% if item.mainType == "Shoes" %}
+          <i class="fas fa-shoe-prints fa-3x"></i>
+          {% endif %}
+
+          {% if item.mainType == "Accessory" %}
+          <i class="fas fa-crown fa-3x"></i>
+          {% endif %}
+        
+        
+        
+        </a></td>
+        <td>{{item.subType}}</td>
+        <td>{{item.description}}</td>
+        <td>{{item.pattern}}</td>
+        <td>{{item.created_at}}</td>
+        <td>
+            {% if item.favorite == False %}
+            <a href="/favitem/{{item.id}}"><i class="far fa-star fa-2x" style="color: grey"></i></a>
+            {% endif %}
+
+            {% if item.favorite == True %}
+            <a href="/favitem/{{item.id}}"><i class="fas fa-star fa-2x" style="color: #966B9D"></i></a>
+            {% endif %}
+        </td>
+
+          <td>
+            <form action="/delete/{{item.id}}" method="post">
+            {% csrf_token %}
+            <input type="submit" name="" class="btn btn-success" style="display: inline-block;" value="Delete">
+            </form>
+          </td>
+      </tr>
+      {% endfor %}
+    </table>
+    {% endif %}
+  
+    {% if not allclothes %}
+      <center><p>You do not currently have any clothing items. Please <a href="/add">add clothing</a> first!</p></center>
+    {% endif %}
+</div>
+</body>
+
+</html>

@@ -15,9 +15,18 @@ body {
     color: #91387b;
 }
 
+a{
+    color: #91387b;
+}
+
+a:hover{
+    color: #bc91c3;
+}
+
 .notes{
     color: grey;
     font-size: .8em;
+    margin-left: 15px;
 }
 
 table, tr, td, th {
@@ -32,7 +41,7 @@ th {
     border: 3px solid #966B9D;
 }
 table{
-    width: 90%;
+    width: 93%;
 }
 
 #topbar{
@@ -46,15 +55,18 @@ table{
     padding-left: 30px;
     padding-top: 5px;
     font-size: 2em;
+    z-index: 99999;
+    border-bottom: 1px solid #a775af;
     -webkit-box-shadow: 0px 5px 42px 0px rgba(0,0,0,0.19);
     -moz-box-shadow: 0px 5px 42px 0px rgba(0,0,0,0.19);
     box-shadow: 0px 5px 42px 0px rgba(0,0,0,0.19);
 }
 
 .login-registration{
-    background-color: #EAEAEA;
+    background-color: #f2f2f2;
+    border: 1px solid white;
     border-radius: 10px;
-    width: 300px;
+    width: 410px;
     display: inline-block;
     height: 400px;
     color: #3f2c42;
@@ -67,6 +79,7 @@ table{
 
 .login-registration h2{
     background-color: #966B9D;
+    border: 1px solid #a775af;
     width: 100%;
     height: 50px;
     color: #3f2c42;
@@ -82,8 +95,24 @@ table{
     padding: 2px 15px;
 }
 
+.login-registration table, .login-registration tr, .login-registration td, .login-registration th {
+    border: none;
+    padding: 5px;
+    margin: 10px 25px;
+    text-align: left;
+  }
+  
+  .login-registration th {
+      background-color: #d3bbcb;
+      border: 3px solid #966B9D;
+  }
+  .login-registration table{
+      width: 93%;
+  }
+
 .main{
-    background-color: #EAEAEA;
+    background-color: #f2f2f2;
+    border: 1px solid white;
     border-radius: 10px;
     width: 100%;
     display: inline-block;
@@ -98,6 +127,7 @@ table{
 
 .main h2{
     background-color: #966B9D;
+    border: 1px solid #a775af;
     width: 100%;
     height: 50px;
     color: #3f2c42;
@@ -113,8 +143,56 @@ table{
     padding: 2px 15px;
 }
 
+.formmain{
+    background-color: #f2f2f2;
+    border: 1px solid white;
+    border-radius: 10px;
+    width: 100%;
+    display: inline-block;
+    height: auto;
+    color: #3f2c42;
+    vertical-align: top;
+    margin: 0px 25px 50px 0px;
+    -webkit-box-shadow: 0px 0px 42px 0px rgba(0,0,0,0.19);
+    -moz-box-shadow: 0px 0px 42px 0px rgba(0,0,0,0.19);
+    box-shadow: 0px 0px 42px 0px rgba(0,0,0,0.19);
+}
+
+.formmain h2{
+    background-color: #966B9D;
+    border: 1px solid #a775af;
+    width: 100%;
+    height: 50px;
+    color: #3f2c42;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    padding: 5px;
+    padding-left: 10px;
+    margin-bottom: 30px;
+    color: #FFF;
+}
+
+.formmain p{
+    padding: 2px 15px;
+}
+
+.formmain table, .formmain tr, .formmain td, .formmain th {
+    border: none;
+    padding: 5px;
+    margin: 10px 25px;
+    text-align: left;
+  }
+  
+  .formmain th {
+      background-color: #d3bbcb;
+      border: 3px solid #966B9D;
+  }
+  .formmain table{
+      width: 93%;
+  }
+
 #index-container{
-    width: 710px;
+    width: 950px;
     margin: 0px auto;
     margin-top: 75px;
 }
@@ -159,12 +237,12 @@ table{
 }
 
 .btn-success:hover {
-    background-color: #c98686;
-    border-color: #c98686;
+    background-color: #e2a6a6;
+    border-color: #e2a6a6;
     color: #FFF;
 }
 
 .btn-success:active {
-    background-color: #c98686;
+    background-color: #e2a6a6;
     border-color: #FFF;
 }

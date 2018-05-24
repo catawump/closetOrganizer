@@ -1,0 +1,134 @@
+<html>
+
+<head>
+  <title>myCloset: View Clothing Item</title>
+  <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
+    crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
+    crossorigin="anonymous">
+  <link rel="stylesheet" href="../static/mycloset/style.css">
+</head>
+
+<body>
+  <div id="topbar">
+    <i class="fas fa-door-open"></i> myCloset
+
+    <a href="/dashboard">
+      <button class="btn btn-danger" style="position: fixed; right: 120px; top: 10px;">Home</button>
+    </a>
+
+    <form action="/logout" method="post" style="display: inline-block;">
+      {% csrf_token %}
+      <input type="submit" name="" class="btn btn-danger" style="position: fixed; right: 30px; top: 10px;" value="Log Out">
+    </form>
+
+  </div>
+  <div id="index-container">
+    <div class="main">
+      <h2>Your {{item.color}} {{item.subType}}</h2>
+
+      <center>
+        <a href="#" style="color: {{item.color}}; opacity: .6; -webkit-text-stroke: 2px #966B9D;">
+
+          {% if item.mainType == "Top" %}
+          <i class="fas fa-tshirt fa-5x"></i>
+          {% endif %} {% if item.mainType == "Bottom" %}
+          <div style="overflow: hidden; width: 75px; height: 43px;">
+            <i class="fas fa-child fa-5x" style="opacity: .6; margin-top: -40px;"></i>
+          </div>
+          {% endif %} {% if item.mainType == "Full-Body" %}
+          <i class="fas fa-female fa-5x"></i>
+          {% endif %} {% if item.mainType == "Shoes" %}
+          <i class="fas fa-shoe-prints fa-5x"></i>
+          {% endif %} {% if item.mainType == "Accessory" %}
+          <i class="fas fa-crown fa-5x"></i>
+          {% endif %}
+
+
+
+        </a>
+      </center>
+
+      <table>
+        <th colspan="2">Details</th>
+        <tr>
+          <td>Type</td>
+          <td>{{item.mainType}}</td>
+          <tr>
+            <td>Sub-Type</td>
+            <td>{{item.subType}}</td>
+          </tr>
+          <tr>
+            <td>Description</td>
+            <td>{{item.description}}</td>
+          </tr>
+          <tr>
+            <td>Pattern</td>
+            <td>{{item.pattern}}</td>
+          </tr>
+          <tr>
+            <td>Fanciness</td>
+            <td>{{item.fanciness}}</td>
+          </tr>
+          <tr>
+            <td>Currently Clean?</td>
+            <td>
+              {% if item.clean == True %}Yes{% endif %} {% if item.clean == False %}No{% endif %}
+            </td>
+          </tr>
+          <td>Favorite Item?</td>
+          <td>
+            {% if item.favorite == True %}Yes{% endif %} {% if item.favorite == False %}No{% endif %}
+          </td>
+        </tr>
+        <tr>
+          <td>Weather</td>
+          <td>{{item.weather}}</td>
+        </tr>
+
+        <tr>
+          <td>Date Added</td>
+          <td>{{item.created_at}}</td>
+        </tr>
+
+      </table>
+
+      <center>
+
+        <form action="/wear/{{item.id}}" method="post" style="display: inline-block;">
+          {% csrf_token %}
+          <input type="submit" name="" class="btn btn-primary" style="display: inline-block; margin-right: 10px;" value="Wear">
+        </form>
+
+        <form action="/favitem/{{item.id}}" method="post" style="display: inline-block;">
+          {% csrf_token %}
+          <input type="submit" name="" class="btn btn-primary" style="display: inline-block; margin-right: 10px;" value="Add/Remove Favorite">
+        </form>
+
+        <form action="/wash/{{item.id}}" method="post" style="display: inline-block;">
+          {% csrf_token %}
+          <input type="submit" name="" class="btn btn-primary" style="display: inline-block; margin-right: 10px;s" value="Wash">
+        </form>
+
+        <form action="/delete/{{item.id}}" method="post" style="display: inline-block;">
+          {% csrf_token %}
+          <input type="submit" name="" class="btn btn-success" style="display: inline-block;" value="Delete">
+        </form>
+
+
+        <br>
+        <br>
+
+        <a href="/dashboard">
+          <button class="btn btn-primary">Return to Dashboard</button>
+        </a>
+
+        <br>
+        <br>
+      </center>
+
+    </div>
+</body>
+
+</html>

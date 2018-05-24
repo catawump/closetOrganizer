@@ -6,6 +6,7 @@ from django.contrib import messages
 import bcrypt
 from django.db.models import Q
 from datetime import date
+import requests
 
 def index(request):
     if 'name' not in request.session:
@@ -31,6 +32,7 @@ def login(request):
             request.session['name'] = user.name
             request.session['email'] = user.email
             request.session['user_id'] = user.id
+            request.session['city'] = user.city
             return redirect ("/dashboard")
 
         else:
@@ -49,10 +51,21 @@ def dashboard(request):
         currentuserid = request.session['user_id']
         cleanclothes = Clothes.objects.filter(Q(clean = True) & Q(favorite = False) & Q(item_creator_id = request.session['user_id']))
         favclothes = Clothes.objects.filter(Q(clean = True) & Q(favorite = True) & Q(item_creator_id = request.session['user_id']))
-        return render (request, "mycloset/dashboard.html", {
-            "cleanclothes": cleanclothes,
-            "favclothes": favclothes,
-        })
+        city = request.session['city']
+        url = 'http://api.openweathermap.org/data/2.5/weather?q={}&units=imperial&appid=f200c2e65e36a0322a9cef53a2534067'
+        city_weather = requests.get(url.format(city)).json()
+        weather = {
+        'city' : city,
+        'temperature' : city_weather['main']['temp'],
+        'description' : city_weather['weather'][0]['description'],
+        'icon' : city_weather['weather'][0]['icon']
+        }
+        context = {
+        'weather' : weather,
+        "cleanclothes": cleanclothes,
+        "favclothes": favclothes
+        }
+        return render (request, "mycloset/dashboard.html", context)
 
 def add(request):
     if 'name' not in request.session:

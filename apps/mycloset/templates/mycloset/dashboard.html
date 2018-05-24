@@ -28,6 +28,8 @@
   <center><p class="errors">{{message}}</p></center>
   {% endfor %} {% endif %}
     <center>
+        <p style="text-transform: capitalize;"><b>Current {{ weather.city }} Weather:</b><br> {{ weather.temperature }} &#8457; - {{ weather.description }}
+        </p>
   <a href="/add">
     <button type="button" class="btn btn-primary" style="display: inline-block; margin-right: 20px;">Add New Clothing</button>
   </a>

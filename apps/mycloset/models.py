@@ -18,6 +18,8 @@ class userManager(models.Manager):
 			messages.add_message( request, messages.ERROR, "Name is required!" )
         if len(request.POST["email"]) < 1:
 			messages.add_message( request, messages.ERROR, "Email is required!" )
+        if len(request.POST["city"]) < 1:
+			messages.add_message( request, messages.ERROR, "City is required!" )
         if not emailREGEX.match( request.POST["email"] ):
 			messages.add_message( request, messages.ERROR, "Invalid email format! Ex: test@test.com" )
         if len(request.POST["password"]) < 8:
@@ -35,6 +37,7 @@ class userManager(models.Manager):
             User.objects.create(
                 name = request.POST["name"],
                 email = request.POST["email"],
+                city = request.POST["city"],
                 password = bcrypt.hashpw(request.POST["password"].encode(), bcrypt.gensalt())
             )
             messages.add_message( request, messages.ERROR, "Your account has been created! Please log in." )
@@ -49,6 +52,7 @@ class User(models.Model):
     name = models.CharField(max_length=255)
     email = models.CharField(max_length=255)
     password = models.CharField(max_length=255)
+    city = models.CharField(max_length=255)
     objects = userManager()
 
 #Clothes Model

@@ -71,8 +71,8 @@ class Clothes(models.Model):
 
 class Outfit(models.Model):
     name = models.CharField(max_length=255)
-    top = models.ManyToManyField(Clothes, related_name="outfit_top")
-    bottom = models.ManyToManyField(Clothes, related_name="outfit_bottom")
-    shoes = models.ManyToManyField(Clothes, related_name="outfit_shoes")
-    accessory = models.ManyToManyField(Clothes, related_name="outfit_accessory")
+    top = models.ForeignKey(Clothes, related_name="outfit_top")
+    bottom = models.ForeignKey(Clothes, related_name="outfit_bottom")
+    shoes = models.ForeignKey(Clothes, related_name="outfit_shoes")
+    accessory = models.ForeignKey(Clothes, related_name="outfit_accessory")
     outfit_creator = models.ForeignKey(User, related_name="user_outfits")

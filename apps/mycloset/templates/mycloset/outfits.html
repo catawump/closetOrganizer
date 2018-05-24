@@ -7,11 +7,12 @@
     crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
   <link rel="stylesheet" href="../static/mycloset/style.css">
+  <link rel="shortcut icon" href="../static/mycloset/favicon.ico">
 </head>
 
 <body>
 
-  <div id = "topbar"><i class="fas fa-door-open"></i> myCloset
+  <div id = "topbar"><a href="/dashboard"><i class="fas fa-door-open"></i> myCloset</a>
 
     <a href="/dashboard">
       <button class="btn btn-danger" style="position: fixed; right: 120px; top: 10px;">Home</button>
@@ -62,69 +63,65 @@
         <td>
           {{outfit.name}}</td>
         <td>
-            {% for top in outfit.top.all %}
-            {% if top.clean == True %}
-            <a href="/viewitem/{{top.id}}" style="color: {{top.color}}; opacity: .6; -webkit-text-stroke: 2px #966B9D;">
+            {% if outfit.top.clean == True %}
+            <a href="/viewitem/{{outfit.top_id}}" style="color: {{outfit.top.color}}; opacity: .6; -webkit-text-stroke: 2px #966B9D;">
           <i class="fas fa-tshirt fa-3x"></i>      
         </a>
         {% endif %}
 
-        {% if top.clean == False %}
-            <a href="/viewitem/{{top.id}}" style="color: {{top.color}}; opacity: .1; -webkit-text-stroke: 2px #966B9D;">
+        {% if outfit.top.clean == False %}
+            <a href="/viewitem/{{outfit.top.id}}" style="color: {{outfit.top.color}}; opacity: .1; -webkit-text-stroke: 2px #966B9D;">
           <i class="fas fa-tshirt fa-3x"></i>      
         </a>
         {% endif %}
 
-        {% endfor %}
       </td>
       <td>
-          {% for bottom in outfit.bottom.all %}
-          {% if bottom.clean == True %}
-        <a href="/viewitem/{{bottom.id}}" style="color: {{bottom.color}}; opacity: .6; -webkit-text-stroke: 2px #966B9D;">
+          {% if outfit.bottom.clean == True %}
+        <a href="/viewitem/{{outfit.bottom.id}}" style="color: {{outfit.bottom.color}}; opacity: .6; -webkit-text-stroke: 2px #966B9D;">
         <div style="overflow: hidden; width: 75px; height: 43px;"><i class="fas fa-child fa-5x" style="opacity: .6; margin-top: -40px; margin-left: 20px;"></i></div>   
       </a>
       {% endif %}
 
-      {% if bottom.clean == False %}
-      <a href="/viewitem/{{bottom.id}}" style="color: {{bottom.color}}; opacity: .1; -webkit-text-stroke: 2px #966B9D;">
-      <div style="overflow: hidden; width: 75px; height: 43px;"><i class="fas fa-child fa-5x" style="opacity: .6; margin-top: -40px; margin-left: 20px;"></i></div>   
+      {% if outfit.bottom.clean == False %}
+      <a href="/viewitem/{{bottom.id}}" style="color: {{outfit.bottom.color}}; opacity: .1; -webkit-text-stroke: 2px #966B9D;">
+      <div style="overflow: hidden; width: 75px; height: 43px;"><i class="fas fa-child fa-5x" style="opacity: .1; margin-top: -40px; margin-left: 20px;"></i></div>   
     </a>
     {% endif %}
 
 
-      {% endfor %}
     </td>
     <td>
-        {% for shoe in outfit.shoes.all %}
-        {% if shoe.clean == True %}
-      <a href="/viewitem/{{shoe.id}}" style="color: {{shoe.color}}; opacity: .6; -webkit-text-stroke: 2px #966B9D;">
+
+        {% if outfit.shoes.clean == True %}
+      <a href="/viewitem/{{outfit.shoes.id}}" style="color: {{outfit.shoes.color}}; opacity: .6; -webkit-text-stroke: 2px #966B9D;">
       <i class="fas fa-shoe-prints fa-3x"></i>
     </a>
     {% endif %}
     
-    {% if shoe.clean == False %}
-    <a href="/viewitem/{{shoe.id}}" style="color: {{shoe.color}}; opacity: .1; -webkit-text-stroke: 2px #966B9D;">
+    {% if outfit.shoes.clean == False %}
+    <a href="/viewitem/{{outfit.shoes.id}}" title="Dirty" style="color: {{outfit.shoes.color}}; opacity: .1; -webkit-text-stroke: 2px #966B9D;">
       <i class="fas fa-shoe-prints fa-3x"></i>
     </a>
     {% endif %}
 
-    {% endfor %}
+
   </td>
   <td>
-      {% for accessory in outfit.accessory.all %}
-      {% if accessory.clean == True %}
-      <a href="/viewitem/{{accessory.id}}" style="color: {{accessory.color}}; opacity: .6; -webkit-text-stroke: 2px #966B9D;">
+
+      {% if outfit.accessory.clean == True %}
+      <a href="/viewitem/{{outfit.accessory.id}}" style="color: {{outfit.accessory.color}}; opacity: .6; -webkit-text-stroke: 2px #966B9D;">
     <i class="fas fa-crown fa-3x"></i>
   </a>
   {% endif %}
 
-  {% if accessory.clean == False %}
-      <a href="/viewitem/{{accessory.id}}" style="color: {{accessory.color}}; opacity: .1; -webkit-text-stroke: 2px #966B9D;">
+  {% if outfit.accessory.clean == False %}
+      <a href="/viewitem/{{outfit.accessory.id}}" style="color: {{outfit.accessory.color}}; opacity: .1; -webkit-text-stroke: 2px #966B9D;">
     <i class="fas fa-crown fa-3x"></i>
   </a>
   {% endif %}
 
-  {% endfor %}
+
 </td>
         <td><form action="/wearoutfit/{{outfit.id}}" method="post">
           {% csrf_token %}

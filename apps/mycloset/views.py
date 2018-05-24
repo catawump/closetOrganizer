@@ -183,12 +183,16 @@ def delete(request, id):
     else:
         currentuserid = request.session['user_id']
         item = Clothes.objects.get(id=id)
-        print item.color
-        print item.outfit_top.name
-        #if item.outfit_top.id == id:
-            #messages.add_message( request, messages.ERROR, "You cannot delete an item that is part of an outfit!" )
-            #return redirect('/manage')
-        #Clothes.objects.get(id=id).delete()
+        outfits = Outfit.objects.all()
+        for outfit in outfits:
+            print outfit.top_id
+            if item.id == outfit.top_id or item.id == outfit.bottom_id or item.id == outfit.shoes_id or item.id == outfit.accessory_id:
+                messages.add_message( request, messages.ERROR, "You cannot delete an item that is part of an outfit!" )
+                return redirect('/manage')
+        if item.favorite == True:
+            messages.add_message( request, messages.ERROR, "You cannot delete your favorite items!" )
+            return redirect('/manage')
+        Clothes.objects.get(id=id).delete()
         return redirect('/manage')
 
 def deleteoutfit(request, id):
@@ -230,7 +234,6 @@ def addoutfit(request):
         })
 
 def createoutfit(request):
-    today = str(date.today())
 
     if 'name' not in request.session:
         return render (request, "mycloset/index.html")
@@ -246,27 +249,43 @@ def createoutfit(request):
                 outfit = Outfit.objects.create(
                     name = request.POST["name"],
                     outfit_creator = User.objects.get(id=request.session['user_id']),
-                )
+                    top_id = request.POST["top"],
+                    bottom_id = request.POST["bottom"],
+                    shoes_id = request.POST["shoes"],
+                    accessory_id = request.POST["accessory"],
 
-                outfitnew = Outfit.objects.get(id=outfit.id)
-                top = Clothes.objects.get(id = request.POST["top"])
-                outfitnew.top.add(top)
-                outfitnew.save()
-                bottom = Clothes.objects.get(id = request.POST["bottom"])
-                outfitnew.bottom.add(bottom)
-                outfitnew.save()
-                shoe = Clothes.objects.get(id = request.POST["shoes"])
-                outfitnew.shoes.add(shoe)
-                outfitnew.save()
-                accessory = Clothes.objects.get(id = request.POST["accessory"])
-                outfitnew.accessory.add(accessory)
-                outfitnew.save()
+                )
               
                 messages.add_message( request, messages.ERROR, "Your outfit has been added!" )
 
                 return redirect("/outfits")
         else:
             return redirect("/addoutfit")
+
+def wearoutfit(request, id):
+    if 'name' not in request.session:
+        return render (request, "mycloset/index.html")
+    else:
+        outfit = Outfit.objects.get(id=id)
+        if request.method == "POST":
+            if outfit.top.clean == False or outfit.bottom.clean == False or outfit.shoes.clean == False or outfit.accessory.clean == False:
+                messages.add_message( request, messages.ERROR, "One or more items in this outfit are dirty! Wash before wearing." )
+                return redirect("/outfits")
+            else:
+                outfit.top.clean = False
+                outfit.bottom.clean = False
+                outfit.shoes.clean = False
+                outfit.accessory.clean = False
+                outfit.top.save()
+                outfit.bottom.save()
+                outfit.shoes.save()
+                outfit.accessory.save()
+
+                messages.add_message( request, messages.ERROR, "You have worn this outfit! Items are now dirty." )
+
+                return redirect("/outfits")
+        else:
+            return redirect("/outfits")
 
 
 def logout(request):

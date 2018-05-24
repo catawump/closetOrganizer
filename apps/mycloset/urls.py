@@ -17,6 +17,7 @@ urlpatterns = [
     url(r'^outfits$', views.outfits),
     url(r'^addoutfit$', views.addoutfit),
     url(r'^createoutfit$', views.createoutfit),
+    url(r'^wearoutfit/(?P<id>\d+)$', views.wearoutfit),
     url(r'^favitem/(?P<id>\d+)$', views.favitem),
     url(r'^delete/(?P<id>\d+)$', views.delete),
     url(r'^deleteoutfit/(?P<id>\d+)$', views.deleteoutfit),

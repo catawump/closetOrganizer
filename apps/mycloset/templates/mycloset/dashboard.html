@@ -7,11 +7,12 @@
     crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
   <link rel="stylesheet" href="../static/mycloset/style.css">
+  <link rel="shortcut icon" href="../static/mycloset/favicon.ico">
 </head>
 
 <body>
 
-    <div id = "topbar"><i class="fas fa-door-open"></i> myCloset
+    <div id = "topbar"><a href="/dashboard"><i class="fas fa-door-open"></i> myCloset</a>
 
       <form action="/logout" method="post" style="display: inline-block;">
         {% csrf_token %}
@@ -69,7 +70,7 @@
             {% endif %}
   
             {% if clothes.mainType == "Bottom" %}
-            <div style="overflow: hidden; width: 75px; height: 43px;"><i class="fas fa-child fa-5x" style="opacity: .6; margin-top: -40px;"></i></div>
+            <div style="overflow: hidden; width: 75px; height: 43px;"><i class="fas fa-child fa-5x" style="opacity: .6; margin-top: -40px; margin-left: 15px;"></i></div>
             {% endif %}
   
             {% if clothes.mainType == "Full-Body" %}
